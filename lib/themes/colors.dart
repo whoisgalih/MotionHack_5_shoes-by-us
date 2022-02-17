@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 // Primary
-Color primary50 = const Color(0xFF2AF56F);
+Color primary50 = const Color(0xFF2EC95A);
 
 // Secondary
 Color accent50 = const Color(0xFF7D3BD1);
@@ -20,6 +20,7 @@ Color blue2 = const Color(0xFF3E5091);
 Color neutralBlack = const Color(0xFF252525);
 Color neutralBlue = const Color(0xFFB8D5EA);
 Color neutralGrey = const Color(0xFFEEEEEE);
+Color neutralGrey2 = const Color(0xFF959595);
 Color neutralWhite = const Color(0xFFFFFFFF);
 
 Color border = const Color(0xFFEAEAEA);
