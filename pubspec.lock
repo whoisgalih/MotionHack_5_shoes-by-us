@@ -90,13 +90,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
-  flutter_staggered_grid_view:
-    dependency: "direct main"
-    description:
-      name: flutter_staggered_grid_view
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.6.1"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -104,6 +97,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.3"
+  flutter_tabler_icons:
+    dependency: "direct main"
+    description:
+      name: flutter_tabler_icons
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -158,13 +158,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.7.0"
-  nested:
-    dependency: transitive
-    description:
-      name: nested
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
   path:
     dependency: transitive
     description:
@@ -263,13 +256,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.2.4"
-  provider:
-    dependency: "direct main"
-    description:
-      name: provider
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "6.0.2"
   sky_engine:
     dependency: transitive
     description: flutter
