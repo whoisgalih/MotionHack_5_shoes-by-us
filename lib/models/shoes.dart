@@ -11,6 +11,7 @@ class Shoes {
   final int price;
   final List<int> sizes;
   final double discountPercent;
+  int? selectedSize;
   int? quantity;
 
   Shoes({
@@ -23,6 +24,7 @@ class Shoes {
     required this.price,
     required this.sizes,
     required this.discountPercent,
+    this.selectedSize = 0,
     this.quantity = 0,
   });
 }

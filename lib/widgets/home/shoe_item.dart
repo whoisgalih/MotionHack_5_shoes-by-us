@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shoes_by_us/formater/addDot.dart';
 import 'package:shoes_by_us/models/shoes.dart';
-import 'package:shoes_by_us/pages/shoe_page.dart';
+import 'package:shoes_by_us/pages/shoe/shoe_page.dart';
 import 'package:shoes_by_us/themes/colors.dart';
 import 'package:shoes_by_us/themes/fonts.dart';
 

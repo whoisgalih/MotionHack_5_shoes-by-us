@@ -78,9 +78,10 @@ class BoardingPage extends StatelessWidget {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () =>
+                            Navigator.of(context).pushNamed("/home"),
                         child: Text(
-                          "Sign up with Email ID",
+                          "Continue with Google",
                           style: button.copyWith(color: neutralBlack),
                         ),
                         style: ElevatedButton.styleFrom(

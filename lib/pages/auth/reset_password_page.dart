@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:shoes_by_us/themes/colors.dart';
 import 'package:shoes_by_us/themes/fonts.dart';
-import 'package:shoes_by_us/widgets/auth_app_bar.dart';
+import 'package:shoes_by_us/widgets/auth/auth_app_bar.dart';
 
 class ResetPasswordPage extends StatefulWidget {
   const ResetPasswordPage({Key? key}) : super(key: key);

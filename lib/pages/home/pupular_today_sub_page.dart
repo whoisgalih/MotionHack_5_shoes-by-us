@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:shoes_by_us/models/shoes.dart';
-import 'package:shoes_by_us/widgets/featured_shoe.dart';
-import 'package:shoes_by_us/widgets/shoe_list.dart';
+import 'package:shoes_by_us/widgets/home/featured_shoe.dart';
+import 'package:shoes_by_us/widgets/home/shoe_list.dart';
 
 class PopularTodaySubPage extends StatefulWidget {
   const PopularTodaySubPage({

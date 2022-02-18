@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:shoes_by_us/models/shoes.dart';
-import 'package:shoes_by_us/widgets/shoe_item.dart';
+import 'package:shoes_by_us/widgets/home/shoe_item.dart';
 
 class ShoesList extends StatelessWidget {
   final List<Shoes> shoes;
