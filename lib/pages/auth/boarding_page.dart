@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shoes_by_us/pages/sign_up_page.dart';
+import 'package:shoes_by_us/pages/auth/sign_up_page.dart';
 import 'package:shoes_by_us/themes/colors.dart';
 import 'package:shoes_by_us/themes/fonts.dart';
 
@@ -99,18 +99,23 @@ class BoardingPage extends StatelessWidget {
                     const SizedBox(
                       height: 42,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    Wrap(
+                      direction: Axis.horizontal,
+                      // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           "Already have an account?  ",
                           style: button,
                         ),
-                        Text(
-                          "Sign In",
-                          style: button.copyWith(
-                            decoration: TextDecoration.underline,
-                            fontWeight: FontWeight.w700,
+                        GestureDetector(
+                          onTap: () =>
+                              Navigator.of(context).pushNamed('/sign-in'),
+                          child: Text(
+                            "Sign In",
+                            style: button.copyWith(
+                              decoration: TextDecoration.underline,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ),
                       ],

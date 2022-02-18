@@ -1,0 +1,54 @@
+{
+  "shoes": [
+    {
+      "id": 1,
+      "image": "assets/images/shoes/transparent-1.png",
+      "name": "Nike SB Zoom Blazer Mid Premium",
+      "brand": "Nike",
+      "desc": "Inspired by the community art spaces of Barcelona, the Nike SB Zoom Blazer Mid Premium is made from a collage of materials like suede, leather and canvas.The design is elevated with a multi-coloured \"Nike\" embroidery on the heel and a mismatched Swoosh.\n\nColour Shown: Lilac/Copa/Dutch Blue/Court Blue\nStyle: DA8854-500",
+      "price": 1540000,
+      "sizes": [38, 39, 40, 41, 42, 43, 44],
+      "discountPercent": 20
+    },
+    {
+      "id": 2,
+      "image": "assets/images/shoes/transparent-2.png",
+      "name": "Air Jordan 1 Mid SE",
+      "brand": "Nike",
+      "desc": "Inspired by the community art spaces of Barcelona, the Nike SB Zoom Blazer Mid Premium is made from a collage of materials like suede, leather and canvas.The design is elevated with a multi-coloured \"Nike\" embroidery on the heel and a mismatched Swoosh.\n\nColour Shown: Lilac/Copa/Dutch Blue/Court Blue\nStyle: DA8854-500",
+      "price": 3250000,
+      "sizes": [38, 39, 40, 41, 42, 43, 44],
+      "discountPercent": 0
+    },
+    {
+      "id": 3,
+      "image": "assets/images/shoes/transparent-3.png",
+      "name": "Blazer Low ‘77 Vintage",
+      "brand": "Nike",
+      "desc": "Inspired by the community art spaces of Barcelona, the Nike SB Zoom Blazer Mid Premium is made from a collage of materials like suede, leather and canvas.The design is elevated with a multi-coloured \"Nike\" embroidery on the heel and a mismatched Swoosh.\n\nColour Shown: Lilac/Copa/Dutch Blue/Court Blue\nStyle: DA8854-500",
+      "price": 3250000,
+      "sizes": [38, 39, 40, 41, 42, 43, 44],
+      "discountPercent": 0
+    },
+    {
+      "id": 4,
+      "image": "assets/images/shoes/transparent-2.png",
+      "name": "Air Jordan 1 Mid SE",
+      "brand": "Nike",
+      "desc": "Inspired by the community art spaces of Barcelona, the Nike SB Zoom Blazer Mid Premium is made from a collage of materials like suede, leather and canvas.The design is elevated with a multi-coloured \"Nike\" embroidery on the heel and a mismatched Swoosh.\n\nColour Shown: Lilac/Copa/Dutch Blue/Court Blue\nStyle: DA8854-500",
+      "price": 3250000,
+      "sizes": [38, 39, 40, 41, 42, 43, 44],
+      "discountPercent": 0
+    },
+    {
+      "id": 5,
+      "image": "assets/images/shoes/transparent-3.png",
+      "name": "Blazer Low ‘77 Vintage",
+      "brand": "Nike",
+      "desc": "Inspired by the community art spaces of Barcelona, the Nike SB Zoom Blazer Mid Premium is made from a collage of materials like suede, leather and canvas.The design is elevated with a multi-coloured \"Nike\" embroidery on the heel and a mismatched Swoosh.\n\nColour Shown: Lilac/Copa/Dutch Blue/Court Blue\nStyle: DA8854-500",
+      "price": 3250000,
+      "sizes": [38, 39, 40, 41, 42, 43, 44],
+      "discountPercent": 0
+    }
+  ]
+}

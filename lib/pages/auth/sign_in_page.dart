@@ -2,24 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:shoes_by_us/themes/colors.dart';
 import 'package:shoes_by_us/themes/fonts.dart';
+import 'package:shoes_by_us/widgets/auth_app_bar.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+class SignInPage extends StatefulWidget {
+  const SignInPage({Key? key}) : super(key: key);
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  State<SignInPage> createState() => _SignInPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
-  final TextEditingController _nameController = TextEditingController();
+class _SignInPageState extends State<SignInPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   bool isButtonEnabled = false;
 
   void changeButtonState() {
-    if (_nameController.text.isNotEmpty &&
-        _emailController.text.isNotEmpty &&
+    if (_emailController.text.isNotEmpty &&
         _passwordController.text.length >= 6) {
       setState(() {
         isButtonEnabled = true;
@@ -38,21 +37,7 @@ class _SignUpPageState extends State<SignUpPage> {
       body: SafeArea(
         child: Column(
           children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-              child: Row(
-                children: [
-                  Row(
-                    children: [
-                      const Icon(Icons.chevron_left_rounded),
-                      const SizedBox(width: 24),
-                      Text('Back', style: headline6)
-                    ],
-                  ),
-                  const Icon(Icons.question_mark_rounded)
-                ],
-              ),
-            ),
+            AuthAppBar(),
             Expanded(
                 child: SingleChildScrollView(
               child: Container(
@@ -67,57 +52,20 @@ class _SignUpPageState extends State<SignUpPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Sign Up",
+                          "Welcome Back!",
                           style: headline5,
                         ),
                         const SizedBox(height: 18),
                         Container(
                           constraints: const BoxConstraints(maxWidth: 263),
                           child: Text(
-                            "Create an account so you can order your favorite products even faster 🔥",
+                            "It seems like you already have an account, lets sign in shall we 😀",
                             style: subtitle2,
                           ),
                         ),
                         const SizedBox(
-                          height: 36,
+                          height: 32,
                         ),
-                        TextField(
-                          onChanged: (text) {
-                            changeButtonState();
-                          },
-                          controller: _nameController,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: textField,
-                            hintText: 'John Doe',
-                            hintStyle: button.copyWith(color: textFieldHint),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: BorderSide.none,
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: BorderSide(
-                                style: BorderStyle.solid,
-                                color: accent50,
-                                width: 2.5,
-                              ),
-                            ),
-                            contentPadding: const EdgeInsets.only(
-                                top: 17, bottom: 17, right: 32),
-                            prefixIcon: Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 32, right: 24),
-                              child: Icon(
-                                TablerIcons.user,
-                                size: 24,
-                                color: neutralBlack,
-                              ),
-                            ),
-                            prefixIconColor: textFieldHint,
-                          ),
-                        ),
-                        const SizedBox(height: 16),
                         TextField(
                           onChanged: (text) {
                             changeButtonState();
@@ -198,30 +146,25 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 16),
+                        SizedBox(height: 24),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context)
+                                    .pushNamed("/reset-password");
+                              },
+                              child: Text("Reset Password",
+                                  style: button.copyWith(color: neutralGrey2)),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 32),
                       ],
                     ),
                     Column(
                       children: [
-                        RichText(
-                            text: TextSpan(
-                                style: caption.copyWith(color: neutralBlack),
-                                text: "By signing up, you're agree to our ",
-                                children: [
-                              TextSpan(
-                                  text: "T.O.S",
-                                  style: caption.copyWith(
-                                      fontWeight: FontWeight.w700)),
-                              TextSpan(
-                                text: " and ",
-                                style: caption,
-                              ),
-                              TextSpan(
-                                  text: "Privacy Policy",
-                                  style: caption.copyWith(
-                                      fontWeight: FontWeight.w700)),
-                            ])),
-                        const SizedBox(height: 31),
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
@@ -234,7 +177,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  "Create Account",
+                                  "Login",
                                   style: button.copyWith(
                                       color: isButtonEnabled
                                           ? neutralWhite
@@ -259,6 +202,29 @@ class _SignUpPageState extends State<SignUpPage> {
                                 )),
                           ),
                         ),
+                        SizedBox(
+                          height: 24,
+                        ),
+                        Wrap(
+                          direction: Axis.horizontal,
+                          children: [
+                            Text(
+                              "Not having an account yet?  ",
+                              style: button,
+                            ),
+                            GestureDetector(
+                              onTap: () =>
+                                  Navigator.of(context).pushNamed('/sign-up'),
+                              child: Text(
+                                "Sign Up",
+                                style: button.copyWith(
+                                  decoration: TextDecoration.underline,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
                       ],
                     )
                   ],

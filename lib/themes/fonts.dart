@@ -3,13 +3,23 @@ import 'package:google_fonts/google_fonts.dart';
 import 'colors.dart';
 
 TextStyle headline4 = GoogleFonts.poppins(
-    fontSize: 34, fontWeight: FontWeight.w500, letterSpacing: 0.0125);
+    fontSize: 34,
+    fontWeight: FontWeight.w500,
+    letterSpacing: 0.0125,
+    color: neutralBlack);
 
 TextStyle headline5 = GoogleFonts.poppins(
-    fontSize: 24, fontWeight: FontWeight.w500, letterSpacing: 0.0125);
+    fontSize: 24,
+    fontWeight: FontWeight.w500,
+    letterSpacing: 0.0125,
+    color: neutralBlack);
 
 TextStyle headline6 = GoogleFonts.poppins(
-    fontSize: 20, fontWeight: FontWeight.w500, letterSpacing: 0.0125);
+  fontSize: 20,
+  fontWeight: FontWeight.w500,
+  letterSpacing: 0.0125,
+  color: neutralBlack,
+);
 
 TextStyle subtitle1 = GoogleFonts.poppins(
     fontSize: 16,
@@ -24,10 +34,16 @@ TextStyle subtitle2 = GoogleFonts.poppins(
     color: neutralGrey2);
 
 TextStyle bodyText1 = GoogleFonts.inter(
-    fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 0.0125);
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    letterSpacing: 0.0125,
+    color: neutralBlack);
 
 TextStyle bodyText2 = GoogleFonts.inter(
-    fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.0125);
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    letterSpacing: 0.0125,
+    color: neutralBlack);
 
 TextStyle button = GoogleFonts.inter(
     fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 0.0125);
@@ -39,7 +55,8 @@ TextStyle caption = GoogleFonts.inter(
     color: neutralBlack);
 
 TextStyle appBarBrandTitle = GoogleFonts.inter(
-    fontSize: 17,
-    fontWeight: FontWeight.w700,
-    letterSpacing: 0.0125,
-    color: neutralBlack);
+  fontSize: 17,
+  fontWeight: FontWeight.w700,
+  letterSpacing: 0.0125,
+  color: neutralBlack,
+);

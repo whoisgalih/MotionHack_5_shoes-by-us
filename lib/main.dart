@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shoes_by_us/pages/boarding_page.dart';
-import 'package:shoes_by_us/pages/home_page.dart';
-import 'package:shoes_by_us/pages/sign_up_page.dart';
+import 'package:shoes_by_us/pages/auth/boarding_page.dart';
+import 'package:shoes_by_us/pages/auth/check_email_page.dart';
+import 'package:shoes_by_us/pages/auth/reset_password_page.dart';
+import 'package:shoes_by_us/pages/home/home_page.dart';
+import 'package:shoes_by_us/pages/auth/sign_up_page.dart';
+import 'package:shoes_by_us/pages/auth/sign_in_page.dart';
 import 'package:shoes_by_us/themes/colors.dart';
 
 void main() {
@@ -17,6 +20,7 @@ class ShoesByUs extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        scaffoldBackgroundColor: neutralWhite,
         textTheme: TextTheme(
           headline4: GoogleFonts.poppins(
               fontSize: 34, fontWeight: FontWeight.w500, letterSpacing: 0.0125),
@@ -46,12 +50,14 @@ class ShoesByUs extends StatelessWidget {
               fontSize: 12, fontWeight: FontWeight.w400, letterSpacing: 0.004),
         ),
       ),
-      // home: const Wrapper(),
       initialRoute: '/',
       routes: {
         '/': (context) => const Wrapper(),
         '/sign-up': (context) => const SignUpPage(),
         '/home': (context) => const HomePage(),
+        '/sign-in': (context) => const SignInPage(),
+        '/reset-password': (context) => const ResetPasswordPage(),
+        '/check-email': (context) => const CheckEmailPage(),
       },
     );
   }
