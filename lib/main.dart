@@ -7,6 +7,7 @@ import 'package:shoes_by_us/pages/home/home_page.dart';
 import 'package:shoes_by_us/pages/auth/sign_up_page.dart';
 import 'package:shoes_by_us/pages/auth/sign_in_page.dart';
 import 'package:shoes_by_us/themes/colors.dart';
+import 'package:shoes_by_us/widgets/cart/payment_mathod_page.dart';
 
 void main() {
   runApp(const ShoesByUs());
@@ -58,6 +59,7 @@ class ShoesByUs extends StatelessWidget {
         '/sign-in': (context) => const SignInPage(),
         '/reset-password': (context) => const ResetPasswordPage(),
         '/check-email': (context) => const CheckEmailPage(),
+        "/payment-method": (context) => const PaymentMethodPage(),
       },
     );
   }

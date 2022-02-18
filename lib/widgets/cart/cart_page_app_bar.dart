@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:shoes_by_us/themes/colors.dart';
 import 'package:shoes_by_us/themes/fonts.dart';
@@ -37,15 +38,15 @@ class CartPageAppBar extends StatelessWidget {
           Row(
             children: [
               Icon(
-                TablerIcons.heart,
+                Icons.favorite_border_outlined,
                 size: 24,
                 color: neutralBlack,
               ),
               SizedBox(width: 24),
-              Icon(
-                TablerIcons.user,
-                size: 24,
-                color: neutralBlack,
+              SvgPicture.asset(
+                "assets/icons/user-circle 2.svg",
+                height: 24,
+                width: 24,
               ),
             ],
           ),

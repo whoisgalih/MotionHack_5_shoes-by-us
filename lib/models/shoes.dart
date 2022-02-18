@@ -27,4 +27,8 @@ class Shoes {
     this.selectedSize = 0,
     this.quantity = 0,
   });
+
+  bool get isDiscount => discountPercent > 0;
+
+  num get afterDisountPrice => price * (1 - discountPercent / 100);
 }

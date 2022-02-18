@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:shoes_by_us/formater/addDot.dart';
 import 'package:shoes_by_us/models/shoes.dart';
@@ -103,36 +104,6 @@ class CartPage extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Row(children: [
-                                        Text("Shipping ",
-                                            style: subtitle2.copyWith(
-                                                color: neutralBlack)),
-                                      ]),
-                                      const SizedBox(height: 8),
-                                      Text("Time Estimated 24- 2 February",
-                                          style: caption.copyWith(
-                                              color: neutralGrey2))
-                                    ],
-                                  )),
-                                  const Icon(TablerIcons.chevron_right)
-                                ],
-                              )),
-                          Container(
-                              decoration: BoxDecoration(
-                                  border: Border(
-                                      top: BorderSide(
-                                          color: neutralGrey, width: 2),
-                                      bottom: BorderSide(
-                                          color: neutralGrey, width: 2))),
-                              margin: const EdgeInsets.symmetric(vertical: 24),
-                              padding: const EdgeInsets.symmetric(vertical: 24),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                      child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
                                       Wrap(
                                           direction: Axis.horizontal,
                                           children: [
@@ -153,9 +124,192 @@ class CartPage extends StatelessWidget {
                                               color: neutralGrey2))
                                     ],
                                   )),
-                                  const Icon(TablerIcons.chevron_right)
+                                  Icon(TablerIcons.chevron_right,
+                                      size: 24, color: neutralBlack)
                                 ],
-                              ))
+                              )),
+                          Container(
+                              decoration: BoxDecoration(
+                                  border: Border(
+                                      top: BorderSide(
+                                          color: neutralGrey, width: 2),
+                                      bottom: BorderSide(
+                                          color: neutralGrey, width: 2))),
+                              margin: const EdgeInsets.symmetric(vertical: 24),
+                              padding: const EdgeInsets.symmetric(vertical: 24),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(children: [
+                                          SvgPicture.asset(
+                                            "assets/icons/shield 1.svg",
+                                            height: 24,
+                                            width: 24,
+                                          ),
+                                          SizedBox(width: 12),
+                                          Text("Shipping Insurence",
+                                              style: subtitle2.copyWith(
+                                                  color: neutralBlack)),
+                                        ]),
+                                        const SizedBox(height: 8),
+                                        Container(
+                                          constraints:
+                                              BoxConstraints(maxWidth: 241),
+                                          child: Text(
+                                              "Free guaranteed shipping insurance for your products to your home safely.",
+                                              style: caption.copyWith(
+                                                  color: neutralGrey2)),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  SvgPicture.asset(
+                                    "assets/icons/checkbox 1.svg",
+                                    height: 24,
+                                    width: 24,
+                                  ),
+                                ],
+                              )),
+                          Container(
+                              decoration: decoBorder,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 18, vertical: 16),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                      child: Row(children: [
+                                    SvgPicture.asset(
+                                      "assets/icons/discount-2 1.svg",
+                                      height: 24,
+                                      width: 24,
+                                    ),
+                                    SizedBox(width: 18),
+                                    Text("Use Promo If You Have",
+                                        style: subtitle2.copyWith(
+                                            color: neutralBlack)),
+                                  ])),
+                                  Icon(TablerIcons.chevron_right,
+                                      size: 24, color: neutralBlack)
+                                ],
+                              )),
+                          Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  border: Border(
+                                      bottom: BorderSide(
+                                          color: neutralGrey, width: 2))),
+                              margin: const EdgeInsets.symmetric(vertical: 24),
+                              padding: const EdgeInsets.only(bottom: 16),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Payment Details",
+                                      style: headline6.copyWith(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 15)),
+                                  SizedBox(height: 13),
+                                  Container(
+                                    width: double.infinity,
+                                    child: Column(children: [
+                                      PaymentDetailsItem(
+                                          title: "Subtotal",
+                                          price: shoe!.price),
+                                      PaymentDetailsItem(
+                                          title: "Shipping", price: 0),
+                                      PaymentDetailsItem(
+                                          title: "Total", price: shoe!.price),
+                                    ]),
+                                  )
+                                ],
+                              )),
+                          Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  border: Border(
+                                      bottom: BorderSide(
+                                          color: neutralGrey, width: 2))),
+                              margin: const EdgeInsets.only(bottom: 24),
+                              padding: const EdgeInsets.only(bottom: 24),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text("Address Details",
+                                                style: button.copyWith(
+                                                    color: neutralGrey2)),
+                                            SizedBox(height: 4),
+                                            Text(
+                                                "Jln. Terusan Jakarta No. 11, Kota B...",
+                                                style: subtitle2.copyWith(
+                                                    color: neutralBlack)),
+                                          ],
+                                        ),
+                                      ),
+                                      Icon(TablerIcons.chevron_right,
+                                          size: 24, color: neutralBlack)
+                                    ],
+                                  ),
+                                  SizedBox(height: 24),
+                                  GestureDetector(
+                                    onTap: () => Navigator.of(context)
+                                        .pushNamed("/payment-method"),
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          padding: EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                              color: Color(0x330060AF),
+                                              borderRadius:
+                                                  BorderRadius.circular(22)),
+                                          child: Image(
+                                              image: AssetImage(
+                                                  "assets/icons/logo bank bca-01 1.png"),
+                                              height: 24,
+                                              width: 24),
+                                        ),
+                                        SizedBox(width: 24),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text("Payment Method",
+                                                  style: button.copyWith(
+                                                      color: neutralGrey2)),
+                                              SizedBox(height: 4),
+                                              Text("BCA Virtual Account",
+                                                  style: subtitle2.copyWith(
+                                                      color: neutralBlack)),
+                                            ],
+                                          ),
+                                        ),
+                                        Icon(TablerIcons.chevron_right,
+                                            size: 24, color: neutralBlack)
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              )),
+                          Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  border: Border(
+                                      bottom: BorderSide(
+                                          color: neutralGrey, width: 2))),
+                              margin: const EdgeInsets.only(bottom: 24),
+                              padding: const EdgeInsets.only(bottom: 24),
+                              child: Text(
+                                  "With activating protection feature, I accept to Terms and Conditions that apply")),
+                          PaymentDetailsItem(title: "Total", price: 3279000)
                         ],
                       ),
                     ),
@@ -165,6 +319,32 @@ class CartPage extends StatelessWidget {
             : const SizedBox(
                 child: Text("noShoe"),
               ),
+      ),
+    );
+  }
+}
+
+class PaymentDetailsItem extends StatelessWidget {
+  final String title;
+  final num price;
+
+  const PaymentDetailsItem({
+    Key? key,
+    required this.title,
+    required this.price,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(bottom: 8),
+      width: double.infinity,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(title, style: subtitle2),
+          Text(addDot(price), style: caption),
+        ],
       ),
     );
   }
