@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:provider/provider.dart';
+import 'package:shoes_by_us/formater/replace_every.dart';
 import 'package:shoes_by_us/models/payment_provider.dart';
 import 'package:shoes_by_us/themes/colors.dart';
 import 'package:shoes_by_us/themes/fonts.dart';
@@ -86,11 +88,18 @@ class _CardPageState extends State<CardPage> {
                         ),
                         const SizedBox(height: 12),
                         TextField(
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                            ReplaceEvery(every: 4, replacemnt: " "),
+                          ],
+                          maxLength: 19,
+                          keyboardType: TextInputType.number,
                           onChanged: (text) {
                             changeButtonState();
                           },
                           controller: _numberController,
                           decoration: InputDecoration(
+                            counterText: "",
                             filled: true,
                             fillColor: textField,
                             hintText: 'XXXX XXXX XXXX XXXX',
@@ -137,11 +146,18 @@ class _CardPageState extends State<CardPage> {
                                   ),
                                   const SizedBox(height: 12),
                                   TextField(
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.digitsOnly,
+                                      ReplaceEvery(every: 2, replacemnt: "/"),
+                                    ],
+                                    maxLength: 5,
+                                    keyboardType: TextInputType.datetime,
                                     onChanged: (text) {
                                       changeButtonState();
                                     },
                                     controller: _expireController,
                                     decoration: InputDecoration(
+                                      counterText: "",
                                       filled: true,
                                       fillColor: textField,
                                       hintText: 'MM/YY',
@@ -181,11 +197,14 @@ class _CardPageState extends State<CardPage> {
                                   ),
                                   const SizedBox(height: 12),
                                   TextField(
+                                    maxLength: 3,
+                                    keyboardType: TextInputType.number,
                                     onChanged: (text) {
                                       changeButtonState();
                                     },
                                     controller: _cvvController,
                                     decoration: InputDecoration(
+                                      counterText: "",
                                       filled: true,
                                       fillColor: textField,
                                       hintText: 'XXX',

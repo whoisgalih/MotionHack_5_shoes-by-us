@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
+import 'package:intl/intl.dart';
 import 'package:shoes_by_us/formater/addDot.dart';
 import 'package:shoes_by_us/themes/border.dart';
 import 'package:shoes_by_us/themes/colors.dart';
@@ -69,8 +70,12 @@ class TrackItemPage extends StatelessWidget {
                                 isActive ? SizedBox(height: 20) : SizedBox(),
                                 isActive
                                     ? Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          Text("hello",
+                                          Text(
+                                              DateFormat("dd MMMM, yy")
+                                                  .format(DateTime.now()),
                                               style: caption.copyWith(
                                                   color: neutralGrey2)),
                                           SizedBox(height: 6),
@@ -119,9 +124,11 @@ class TrackItemPage extends StatelessWidget {
                             ),
                           ),
                           SizedBox(height: 24),
-                          // Image(
-                          //   image: AssetImage(""),
-                          // )
+                          Image(
+                              image:
+                                  AssetImage("assets/images/Rectangle 113.png"),
+                              height: 141,
+                              width: double.infinity)
                         ],
                       ),
                     )

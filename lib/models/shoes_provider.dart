@@ -13,6 +13,11 @@ class ShoesProvider with ChangeNotifier {
   Shoes? findById(String id) =>
       _shoes.firstWhereOrNull((shoe) => shoe.id == id);
 
+  num get totalPrice => _shoes
+      .map((shoe) => shoe.afterDisountPrice * (shoe.quantity as num))
+      .toList()
+      .reduce((value, element) => value + element);
+
   findIndexById(String id) {
     for (var i = 0; i < _shoes.length; i++) {
       if (_shoes[i].id == id) {

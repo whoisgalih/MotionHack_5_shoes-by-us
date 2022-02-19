@@ -7,6 +7,7 @@ import 'package:shoes_by_us/models/shoes_provider.dart';
 import 'package:shoes_by_us/pages/auth/boarding_page.dart';
 import 'package:shoes_by_us/pages/auth/check_email_page.dart';
 import 'package:shoes_by_us/pages/auth/reset_password_page.dart';
+import 'package:shoes_by_us/pages/cart/address_page.dart';
 import 'package:shoes_by_us/pages/cart/card_page.dart';
 import 'package:shoes_by_us/pages/cart/cart_page.dart';
 import 'package:shoes_by_us/pages/cart/payment_success_page.dart';
@@ -94,6 +95,7 @@ class ShoesByUs extends StatelessWidget {
               "/track": (context) => const TrackItemPage(),
               "/card": (context) => const CardPage(),
               "/promo": (context) => const PromoPage(),
+              "/address": (context) => const AddressPage(),
             },
           ),
         ),

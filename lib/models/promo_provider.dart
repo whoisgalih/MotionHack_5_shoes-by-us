@@ -23,6 +23,14 @@ class PromoProvider with ChangeNotifier {
   changePromo(Promo? promo) {
     _selectedPromo = promo;
   }
+
+  num calculateDiscount(num discount, num price) {
+    return price * discount / 100;
+  }
+
+  num calculatePriceAfterDiscount(num discount, num price) {
+    return price * (1 - discount / 100);
+  }
 }
 
 class Promo {
