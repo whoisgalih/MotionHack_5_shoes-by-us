@@ -4,33 +4,43 @@ import 'package:shoes_by_us/themes/colors.dart';
 import 'package:shoes_by_us/themes/fonts.dart';
 import 'package:shoes_by_us/widgets/auth/auth_app_bar.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+class NewPasswordPage extends StatefulWidget {
+  const NewPasswordPage({Key? key}) : super(key: key);
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  State<NewPasswordPage> createState() => _NewPasswordPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
+class _NewPasswordPageState extends State<NewPasswordPage> {
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordConfirmController =
+      TextEditingController();
 
   bool isButtonEnabled = false;
-  bool showPassword = false;
+  bool showPassword1 = false;
+  bool showPassword2 = false;
+  int level = 0;
 
   void changeButtonState() {
-    if (_nameController.text.isNotEmpty &&
-        _emailController.text.contains("@") &&
-        _emailController.text.contains(".") &&
-        _passwordController.text.length >= 6) {
+    if (_passwordController.text.length >= 6) {
       setState(() {
-        isButtonEnabled = true;
+        if (_passwordController.text.contains(RegExp(r'[0-9]'))) {
+          level = 2;
+        } else {
+          level = 1;
+        }
+
+        if (_passwordController.text == _passwordConfirmController.text) {
+          isButtonEnabled = true;
+        } else {
+          isButtonEnabled = false;
+        }
       });
     } else {
       setState(() {
         isButtonEnabled = false;
       });
+      level = 0;
     }
   }
 
@@ -56,97 +66,22 @@ class _SignUpPageState extends State<SignUpPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Sign Up",
+                          "Let set up your password",
                           style: headline5,
                         ),
                         const SizedBox(height: 18),
                         Container(
                           constraints: const BoxConstraints(maxWidth: 263),
                           child: Text(
-                            "Create an account so you can order your favorite products even faster 🔥",
+                            "Your password must be different from previews password",
                             style: subtitle2,
                           ),
                         ),
                         const SizedBox(
-                          height: 36,
+                          height: 32,
                         ),
                         TextField(
-                          keyboardType: TextInputType.name,
-                          onChanged: (text) {
-                            changeButtonState();
-                          },
-                          controller: _nameController,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: textField,
-                            hintText: 'John Doe',
-                            hintStyle: button.copyWith(color: textFieldHint),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: BorderSide.none,
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: BorderSide(
-                                style: BorderStyle.solid,
-                                color: accent50,
-                                width: 2.5,
-                              ),
-                            ),
-                            contentPadding: const EdgeInsets.only(
-                                top: 17, bottom: 17, right: 32),
-                            prefixIcon: Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 32, right: 24),
-                              child: Icon(
-                                TablerIcons.user,
-                                size: 24,
-                                color: neutralBlack,
-                              ),
-                            ),
-                            prefixIconColor: textFieldHint,
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        TextField(
-                          keyboardType: TextInputType.emailAddress,
-                          onChanged: (text) {
-                            changeButtonState();
-                          },
-                          controller: _emailController,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: textField,
-                            hintText: 'johndoe@company.com',
-                            hintStyle: button.copyWith(color: textFieldHint),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: BorderSide.none,
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: BorderSide(
-                                style: BorderStyle.solid,
-                                color: accent50,
-                                width: 2.5,
-                              ),
-                            ),
-                            contentPadding: const EdgeInsets.only(
-                                top: 17, bottom: 17, right: 32),
-                            prefixIcon: Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 32, right: 24),
-                              child: Icon(
-                                TablerIcons.at,
-                                size: 24,
-                                color: neutralBlack,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        TextField(
-                          obscureText: !showPassword,
+                          obscureText: !showPassword1,
                           onChanged: (text) {
                             changeButtonState();
                           },
@@ -154,7 +89,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: textField,
-                            hintText: 'johndoepassword',
+                            hintText: 'Create new password',
                             hintStyle: button.copyWith(color: textFieldHint),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
@@ -182,10 +117,10 @@ class _SignUpPageState extends State<SignUpPage> {
                             suffixIcon: GestureDetector(
                               onTap: () {
                                 setState(() {
-                                  if (showPassword) {
-                                    showPassword = false;
+                                  if (showPassword1) {
+                                    showPassword1 = false;
                                   } else {
-                                    showPassword = true;
+                                    showPassword1 = true;
                                   }
                                 });
                               },
@@ -201,30 +136,109 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 16),
+                        const SizedBox(height: 12),
+                        Row(
+                          children: [
+                            Container(
+                                width: 62,
+                                height: 4,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(2),
+                                  color: red1,
+                                )),
+                            SizedBox(width: 4),
+                            Container(
+                                width: 62,
+                                height: 4,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(2),
+                                  color: level > 0 ? yellow1 : neutralGrey,
+                                )),
+                            SizedBox(width: 4),
+                            Container(
+                                width: 62,
+                                height: 4,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(2),
+                                  color: level > 1 ? green1 : neutralGrey,
+                                )),
+                            SizedBox(width: 12),
+                            Text(level > 1
+                                ? "Good to go"
+                                : level > 0
+                                    ? "Could be strongger"
+                                    : "Weak password")
+                          ],
+                        ),
+                        const SizedBox(height: 16),
+                        TextField(
+                          obscureText: !showPassword2,
+                          onChanged: (text) {
+                            changeButtonState();
+                          },
+                          controller: _passwordConfirmController,
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: textField,
+                            hintText: 'Confirm password',
+                            hintStyle: button.copyWith(color: textFieldHint),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: BorderSide.none,
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: BorderSide(
+                                style: BorderStyle.solid,
+                                color: accent50,
+                                width: 2.5,
+                              ),
+                            ),
+                            contentPadding:
+                                const EdgeInsets.symmetric(vertical: 17),
+                            prefixIcon: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 32, right: 24),
+                              child: Icon(
+                                TablerIcons.lock,
+                                size: 24,
+                                color: neutralBlack,
+                              ),
+                            ),
+                            suffixIcon: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  if (showPassword2) {
+                                    showPassword2 = false;
+                                  } else {
+                                    showPassword2 = true;
+                                  }
+                                });
+                              },
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 24, right: 32),
+                                child: Icon(
+                                  TablerIcons.eye,
+                                  size: 24,
+                                  color: neutralBlack,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        Text(
+                            _passwordController.text ==
+                                    _passwordConfirmController.text
+                                ? ""
+                                : "Both passwords must match",
+                            style: caption.copyWith(color: neutralGrey2)),
+                        const SizedBox(height: 24),
                       ],
                     ),
                     Column(
                       children: [
-                        RichText(
-                            text: TextSpan(
-                                style: caption.copyWith(color: neutralBlack),
-                                text: "By signing up, you're agree to our ",
-                                children: [
-                              TextSpan(
-                                  text: "T.O.S",
-                                  style: caption.copyWith(
-                                      fontWeight: FontWeight.w700)),
-                              TextSpan(
-                                text: " and ",
-                                style: caption,
-                              ),
-                              TextSpan(
-                                  text: "Privacy Policy",
-                                  style: caption.copyWith(
-                                      fontWeight: FontWeight.w700)),
-                            ])),
-                        const SizedBox(height: 31),
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
@@ -239,7 +253,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  "Create Account",
+                                  "Reset Password",
                                   style: button.copyWith(
                                       color: isButtonEnabled
                                           ? neutralWhite

@@ -23,10 +23,13 @@ class HomePage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Icon(
-                          TablerIcons.menu,
-                          size: 24,
-                          color: neutralBlack,
+                        GestureDetector(
+                          onTap: () => Navigator.of(context).pushNamed("/"),
+                          child: Icon(
+                            TablerIcons.menu,
+                            size: 24,
+                            color: neutralBlack,
+                          ),
                         ),
                         Text(
                           "Shoes By Us",

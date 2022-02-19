@@ -17,7 +17,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   bool isButtonEnabled = false;
 
   void changeButtonState() {
-    if (_emailController.text.isNotEmpty) {
+    if (_emailController.text.contains("@") &&
+        _emailController.text.contains(".")) {
       setState(() {
         isButtonEnabled = true;
       });
@@ -50,14 +51,14 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Welcome Back!",
+                          "Reset Password",
                           style: headline5,
                         ),
                         const SizedBox(height: 18),
                         Container(
                           constraints: const BoxConstraints(maxWidth: 263),
                           child: Text(
-                            "It seems like you already have an account, lets sign in shall we 😀",
+                            "Enter the email associated with your account and we'll send an email instruction to reset your password",
                             style: subtitle2,
                           ),
                         ),
@@ -101,17 +102,17 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           ),
                         ),
                         const SizedBox(height: 16),
-                        Row(
-                          children: [
-                            Icon(TablerIcons.info_circle),
-                            SizedBox(
-                              width: 12,
-                            ),
-                            Text("Reset Password",
-                                style: button.copyWith(color: neutralGrey2)),
-                          ],
-                        ),
-                        const SizedBox(height: 32),
+                        // Row(
+                        //   children: [
+                        //     Icon(TablerIcons.info_circle),
+                        //     SizedBox(
+                        //       width: 12,
+                        //     ),
+                        //     Text("Reset Password",
+                        //         style: button.copyWith(color: neutralGrey2)),
+                        //   ],
+                        // ),
+                        // const SizedBox(height: 32)
                       ],
                     ),
                     Column(
@@ -158,26 +159,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                         SizedBox(
                           height: 24,
                         ),
-                        Wrap(
-                          direction: Axis.horizontal,
-                          children: [
-                            Text(
-                              "Not having an account yet?  ",
-                              style: button,
-                            ),
-                            GestureDetector(
-                              onTap: () =>
-                                  Navigator.of(context).pushNamed('/sign-up'),
-                              child: Text(
-                                "Sign Up",
-                                style: button.copyWith(
-                                  decoration: TextDecoration.underline,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                            ),
-                          ],
-                        )
                       ],
                     )
                   ],

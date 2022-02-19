@@ -152,6 +152,13 @@ class _AddressPageState extends State<AddressPage> {
                               ),
                             ])),
                     Container(
+                      margin: EdgeInsets.only(bottom: 24),
+                      child: Image(
+                          image: AssetImage("assets/images/Rectangle 113.png"),
+                          height: 141,
+                          width: double.infinity),
+                    ),
+                    Container(
                         margin: EdgeInsets.only(bottom: 24),
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

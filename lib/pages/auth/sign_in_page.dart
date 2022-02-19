@@ -16,9 +16,11 @@ class _SignInPageState extends State<SignInPage> {
   final TextEditingController _passwordController = TextEditingController();
 
   bool isButtonEnabled = false;
+  bool showPassword = false;
 
   void changeButtonState() {
-    if (_emailController.text.isNotEmpty &&
+    if (_emailController.text.contains("@") &&
+        _emailController.text.contains(".") &&
         _passwordController.text.length >= 6) {
       setState(() {
         isButtonEnabled = true;
@@ -104,8 +106,7 @@ class _SignInPageState extends State<SignInPage> {
                         ),
                         const SizedBox(height: 16),
                         TextField(
-                          keyboardType: TextInputType.visiblePassword,
-                          obscureText: true,
+                          obscureText: !showPassword,
                           onChanged: (text) {
                             changeButtonState();
                           },
@@ -138,13 +139,24 @@ class _SignInPageState extends State<SignInPage> {
                                 color: neutralBlack,
                               ),
                             ),
-                            suffixIcon: Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 24, right: 32),
-                              child: Icon(
-                                TablerIcons.eye,
-                                size: 24,
-                                color: neutralBlack,
+                            suffixIcon: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  if (showPassword) {
+                                    showPassword = false;
+                                  } else {
+                                    showPassword = true;
+                                  }
+                                });
+                              },
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 24, right: 32),
+                                child: Icon(
+                                  TablerIcons.eye,
+                                  size: 24,
+                                  color: neutralBlack,
+                                ),
                               ),
                             ),
                           ),
