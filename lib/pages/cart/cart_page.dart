@@ -3,6 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:shoes_by_us/formater/addDot.dart';
+import 'package:shoes_by_us/models/payment_provider.dart';
+import 'package:shoes_by_us/models/promo_provider.dart';
 import 'package:shoes_by_us/models/shoes.dart';
 import 'package:shoes_by_us/models/shoes_provider.dart';
 import 'package:shoes_by_us/themes/border.dart';
@@ -154,28 +156,48 @@ class _CartPageState extends State<CartPage> {
                                 ),
                               ],
                             )),
-                        Container(
-                            decoration: decoBorder,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 18, vertical: 16),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                    child: Row(children: [
-                                  SvgPicture.asset(
-                                    "assets/icons/discount-2 1.svg",
-                                    height: 24,
-                                    width: 24,
-                                  ),
-                                  SizedBox(width: 18),
-                                  Text("Use Promo If You Have",
-                                      style: subtitle2.copyWith(
-                                          color: neutralBlack)),
-                                ])),
-                                Icon(TablerIcons.chevron_right,
-                                    size: 24, color: neutralBlack)
-                              ],
-                            )),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pushNamed("/promo");
+                          },
+                          child: Container(
+                              decoration: decoBorder,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 18, vertical: 16),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                      child: Row(children: [
+                                    SvgPicture.asset(
+                                      "assets/icons/discount-2 1.svg",
+                                      height: 24,
+                                      width: 24,
+                                    ),
+                                    SizedBox(width: 18),
+                                    Consumer<PromoProvider>(
+                                        builder: (context, promo, child) {
+                                      print(promo.selectedPromo != null
+                                          ? promo.selectedPromo!.name
+                                          : promo.selectedPromo);
+
+                                      return Text(
+                                          promo.selectedPromo != null
+                                              ? promo.selectedPromo!.name
+                                                  .toUpperCase()
+                                              : "Use Promo If You Have",
+                                          style: subtitle2.copyWith(
+                                              color: neutralBlack,
+                                              fontWeight:
+                                                  promo.selectedPromo != null
+                                                      ? FontWeight.w700
+                                                      : FontWeight.w500));
+                                    }),
+                                  ])),
+                                  Icon(TablerIcons.chevron_right,
+                                      size: 24, color: neutralBlack)
+                                ],
+                              )),
+                        ),
                         Container(
                             width: double.infinity,
                             decoration: BoxDecoration(
@@ -242,39 +264,51 @@ class _CartPageState extends State<CartPage> {
                                 GestureDetector(
                                   onTap: () => Navigator.of(context)
                                       .pushNamed("/payment-method"),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        padding: EdgeInsets.all(10),
-                                        decoration: BoxDecoration(
-                                            color: Color(0x330060AF),
-                                            borderRadius:
-                                                BorderRadius.circular(22)),
-                                        child: Image(
-                                            image: AssetImage(
-                                                "assets/icons/logo bank bca-01 1.png"),
-                                            height: 24,
-                                            width: 24),
-                                      ),
-                                      SizedBox(width: 24),
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text("Payment Method",
-                                                style: button.copyWith(
-                                                    color: neutralGrey2)),
-                                            SizedBox(height: 4),
-                                            Text("BCA Virtual Account",
-                                                style: subtitle2.copyWith(
-                                                    color: neutralBlack)),
-                                          ],
+                                  child: Consumer<PaymentProvider>(
+                                    builder: (context, payment, child) => Row(
+                                      children: [
+                                        Container(
+                                          padding: EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                              color: payment.payment.image
+                                                      .contains(".svg")
+                                                  ? green1
+                                                  : Color(0x330060AF),
+                                              borderRadius:
+                                                  BorderRadius.circular(22)),
+                                          child: payment.payment.image
+                                                  .contains(".svg")
+                                              ? SvgPicture.asset(
+                                                  payment.payment.image,
+                                                  height: 24,
+                                                  width: 24,
+                                                )
+                                              : Image(
+                                                  image: AssetImage(
+                                                      payment.payment.image),
+                                                  height: 24,
+                                                  width: 24),
                                         ),
-                                      ),
-                                      Icon(TablerIcons.chevron_right,
-                                          size: 24, color: neutralBlack)
-                                    ],
+                                        SizedBox(width: 24),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text("Payment Method",
+                                                  style: button.copyWith(
+                                                      color: neutralGrey2)),
+                                              SizedBox(height: 4),
+                                              Text(payment.payment.name,
+                                                  style: subtitle2.copyWith(
+                                                      color: neutralBlack)),
+                                            ],
+                                          ),
+                                        ),
+                                        Icon(TablerIcons.chevron_right,
+                                            size: 24, color: neutralBlack)
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ],
@@ -295,7 +329,7 @@ class _CartPageState extends State<CartPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text("Total", style: button),
-                              Text(addDot(3290000),
+                              Text(addDot(subtotal),
                                   style: subtitle2.copyWith(color: accent50)),
                             ],
                           ),

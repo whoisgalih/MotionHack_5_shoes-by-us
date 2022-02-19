@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
+import 'package:provider/provider.dart';
 import 'package:shoes_by_us/formater/addDot.dart';
+import 'package:shoes_by_us/models/payment_provider.dart';
 import 'package:shoes_by_us/themes/colors.dart';
 import 'package:shoes_by_us/themes/fonts.dart';
 import 'package:shoes_by_us/widgets/cart/payment_success_app_bar.dart';
@@ -58,17 +60,25 @@ class PaymentSuccessPage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Container(
-                          margin: EdgeInsets.only(bottom: 8),
-                          width: double.infinity,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("Payment Metahods", style: subtitle2),
-                              Text("Debit card ending xxxx 5928",
-                                  style: caption),
-                            ],
-                          ),
+                        Consumer<PaymentProvider>(
+                          builder: (context, payment, child) {
+                            return Container(
+                              margin: EdgeInsets.only(bottom: 8),
+                              width: double.infinity,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text("Payment Metahods", style: subtitle2),
+                                  Text(
+                                      payment.payment.image.contains(".svg")
+                                          ? "Debit card ending xxxx ${payment.payment.number.substring(payment.payment.number.length - 4)}"
+                                          : payment.payment.name,
+                                      style: caption),
+                                ],
+                              ),
+                            );
+                          },
                         ),
                         Container(
                           margin: EdgeInsets.only(bottom: 8),

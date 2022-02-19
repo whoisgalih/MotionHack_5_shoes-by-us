@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
+import 'package:provider/provider.dart';
+import 'package:shoes_by_us/models/payment_provider.dart';
 import 'package:shoes_by_us/themes/colors.dart';
 import 'package:shoes_by_us/themes/fonts.dart';
 import 'package:shoes_by_us/widgets/cart/payment_method_app_bar.dart';
@@ -13,12 +15,13 @@ class PaymentMethodPage extends StatefulWidget {
 }
 
 class _PaymentMethodPageState extends State<PaymentMethodPage> {
-  String selectPayment = "";
+  Payment selectPayment = Payment(name: "Please Select Payment", image: "");
+  String selectPaymentName = '';
 
   bool isButtonEnabled = false;
 
   void changeButtonState() {
-    if (selectPayment != "") {
+    if (selectPaymentName != "") {
       setState(() {
         isButtonEnabled = true;
       });
@@ -58,12 +61,14 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
                               (e) => GestureDetector(
                                 onTap: () {
                                   setState(() {
-                                    selectPayment = e[0];
+                                    selectPayment =
+                                        Payment(name: e[0], image: e[1]);
+                                    selectPaymentName = e[0];
                                   });
                                   changeButtonState();
                                 },
                                 child: PaymentOption(
-                                  isActive: selectPayment == e[0],
+                                  isActive: selectPaymentName == e[0],
                                   name: e[0],
                                   image: e[1],
                                 ),
@@ -115,7 +120,10 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
                             style: subtitle2.copyWith(color: neutralBlack)),
                         SizedBox(height: 16),
                         ...[
-                          ["BCA Virtual Account", "assets/icons/bca.png"],
+                          [
+                            "BCA Virtual Account",
+                            "assets/icons/logo bank bca-01 1.png"
+                          ],
                           [
                             "Mandiri Virtual Account",
                             "assets/icons/mandiri.png"
@@ -125,12 +133,14 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
                               (e) => GestureDetector(
                                 onTap: () {
                                   setState(() {
-                                    selectPayment = e[0];
+                                    selectPayment =
+                                        Payment(name: e[0], image: e[1]);
+                                    selectPaymentName = e[0];
                                   });
                                   changeButtonState();
                                 },
                                 child: PaymentOption(
-                                  isActive: selectPayment == e[0],
+                                  isActive: selectPayment.name == e[0],
                                   name: e[0],
                                   image: e[1],
                                 ),
@@ -148,9 +158,11 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
+                  Provider.of<PaymentProvider>(context, listen: false)
+                      .changePayment(selectPayment);
                   isButtonEnabled
-                      // ? Navigator.of(context).pushNamed('/cart')
-                      ? Navigator.of(context).pop()
+                      ? Navigator.of(context).pushNamedAndRemoveUntil(
+                          "/cart", ModalRoute.withName("/cart"))
                       : () {};
                 },
                 child: Row(

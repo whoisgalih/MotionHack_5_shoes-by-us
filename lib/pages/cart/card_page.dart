@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
+import 'package:provider/provider.dart';
+import 'package:shoes_by_us/models/payment_provider.dart';
 import 'package:shoes_by_us/themes/colors.dart';
 import 'package:shoes_by_us/themes/fonts.dart';
 import 'package:shoes_by_us/widgets/auth/auth_app_bar.dart';
@@ -40,7 +42,31 @@ class _CardPageState extends State<CardPage> {
       body: SafeArea(
         child: Column(
           children: [
-            AuthAppBar(),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                          onTap: () => Navigator.pop(context),
+                          child: Icon(TablerIcons.chevron_left,
+                              size: 24, color: neutralBlack)),
+                      const SizedBox(width: 24),
+                      Text('Add Card', style: headline6)
+                    ],
+                  ),
+                  SvgPicture.asset(
+                    "assets/icons/shield 1 blue.svg",
+                    height: 24,
+                    width: 24,
+                  ),
+                ],
+              ),
+            ),
             Expanded(
                 child: SingleChildScrollView(
               child: Container(
@@ -198,11 +224,20 @@ class _CardPageState extends State<CardPage> {
                           width: double.infinity,
                           child: ElevatedButton(
                             onPressed: () {
-                              isButtonEnabled
-                                  ? Navigator.of(context)
-                                      .pushNamedAndRemoveUntil(
-                                          "/cart", (route) => false)
-                                  : () {};
+                              if (isButtonEnabled) {
+                                Provider.of<PaymentProvider>(context,
+                                        listen: false)
+                                    .changePayment(Payment(
+                                        name:
+                                            "Card xxxx ${_numberController.text.substring(_numberController.text.length - 4)}",
+                                        image: "assets/icons/credit-card 1.svg",
+                                        cvv: _cvvController.text,
+                                        number: _numberController.text,
+                                        expireDate: _expireController.text));
+
+                                Navigator.of(context).pushNamedAndRemoveUntil(
+                                    "/cart", ModalRoute.withName("/home"));
+                              }
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -238,7 +273,7 @@ class _CardPageState extends State<CardPage> {
                         ),
                         RichText(
                           text: TextSpan(
-                              text: "By proceed more further, you agreed to",
+                              text: "By proceed more further, you agreed to ",
                               style: caption,
                               children: [
                                 TextSpan(
