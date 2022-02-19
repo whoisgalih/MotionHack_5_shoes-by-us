@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shoes_by_us/formater/addDot.dart';
 import 'package:shoes_by_us/models/shoes.dart';
-import 'package:shoes_by_us/pages/cart/cart_page.dart';
+import 'package:shoes_by_us/models/shoes_provider.dart';
 import 'package:shoes_by_us/themes/colors.dart';
 import 'package:shoes_by_us/themes/fonts.dart';
 import 'package:shoes_by_us/widgets/shoe/accordion.dart';
@@ -18,6 +19,21 @@ class ShoePage extends StatefulWidget {
 
 class _ShoePageState extends State<ShoePage> {
   int selectedSize = 0;
+
+  bool isButtonEnabled = false;
+  bool isInCart = false;
+
+  void changeButtonState() {
+    if (!isInCart && selectedSize != 0) {
+      setState(() {
+        isButtonEnabled = true;
+      });
+    } else {
+      setState(() {
+        isButtonEnabled = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +125,15 @@ class _ShoePageState extends State<ShoePage> {
                                             setState(() {
                                               selectedSize = e;
                                             });
-                                            print(selectedSize);
+                                            isInCart =
+                                                Provider.of<ShoesProvider>(
+                                                            context,
+                                                            listen: false)
+                                                        .findIndexByNameAndSize(
+                                                            widget.shoe!.name,
+                                                            selectedSize) !=
+                                                    null;
+                                            changeButtonState();
                                           },
                                           child: ShoeSize(
                                               isActive: selectedSize == e,
@@ -124,20 +148,59 @@ class _ShoePageState extends State<ShoePage> {
                                 width: double.infinity,
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    widget.shoe!.selectedSize = selectedSize;
-                                    selectedSize != 0
-                                        ? Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (builder) => CartPage(
-                                                    shoe: widget.shoe)))
-                                        : null;
+                                    if (isButtonEnabled) {
+                                      if (Provider.of<ShoesProvider>(context,
+                                                  listen: false)
+                                              .findIndexByNameAndSize(
+                                                  widget.shoe!.name,
+                                                  selectedSize) !=
+                                          null) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                          content: Text('Item already in cart',
+                                              style: subtitle1.copyWith(
+                                                  color: red2)),
+                                          backgroundColor: red1,
+                                          duration: const Duration(
+                                              milliseconds: 3000),
+                                          padding: const EdgeInsets.all(16),
+                                          margin: const EdgeInsets.symmetric(
+                                              horizontal: 20, vertical: 24),
+                                          behavior: SnackBarBehavior.floating,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                        ));
+                                      } else {
+                                        setState(() {
+                                          isInCart = true;
+                                        });
+                                        widget.shoe!.selectedSize =
+                                            selectedSize;
+                                        widget.shoe!.quantity = 1;
+                                        Provider.of<ShoesProvider>(context,
+                                                listen: false)
+                                            .addShoes(widget.shoe!);
+                                      }
+                                      changeButtonState();
+
+                                      // Navigator.of(context).pushNamed("/cart");
+                                    }
                                   },
                                   child: Text(
-                                    "Add to cart",
-                                    style: button.copyWith(color: neutralWhite),
+                                    isInCart
+                                        ? 'Item already in cart'
+                                        : "Add to cart",
+                                    style: button.copyWith(
+                                        color: isButtonEnabled
+                                            ? neutralWhite
+                                            : neutralGrey2),
                                   ),
                                   style: ElevatedButton.styleFrom(
-                                      primary: neutralBlack,
+                                      primary: isButtonEnabled
+                                          ? neutralBlack
+                                          : neutralGrey,
                                       elevation: 0,
                                       padding: const EdgeInsets.all(18),
                                       shape: RoundedRectangleBorder(

@@ -170,7 +170,9 @@ class _SignInPageState extends State<SignInPage> {
                           child: ElevatedButton(
                             onPressed: () {
                               isButtonEnabled
-                                  ? Navigator.of(context).pushNamed('/home')
+                                  ? Navigator.of(context)
+                                      .pushNamedAndRemoveUntil(
+                                          "/home", (route) => false)
                                   : () {};
                             },
                             child: Row(

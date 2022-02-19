@@ -29,10 +29,15 @@ class ShoePageAppBar extends StatelessWidget {
             "Shoes By Us",
             style: appBarBrandTitle,
           ),
-          Icon(
-            TablerIcons.shopping_cart,
-            size: 24,
-            color: neutralBlack,
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushNamed("/cart");
+            },
+            child: Icon(
+              TablerIcons.shopping_cart,
+              size: 24,
+              color: neutralBlack,
+            ),
           ),
         ],
       ),

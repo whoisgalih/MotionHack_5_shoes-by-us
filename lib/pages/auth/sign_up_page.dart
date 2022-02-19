@@ -214,7 +214,9 @@ class _SignUpPageState extends State<SignUpPage> {
                           child: ElevatedButton(
                             onPressed: () {
                               isButtonEnabled
-                                  ? Navigator.of(context).pushNamed('/home')
+                                  ? Navigator.of(context)
+                                      .pushNamedAndRemoveUntil(
+                                          "/home", (route) => false)
                                   : () {};
                             },
                             child: Row(
