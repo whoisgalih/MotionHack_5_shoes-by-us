@@ -69,6 +69,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           height: 36,
                         ),
                         TextField(
+                          keyboardType: TextInputType.name,
                           onChanged: (text) {
                             changeButtonState();
                           },
@@ -106,6 +107,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                         const SizedBox(height: 16),
                         TextField(
+                          keyboardType: TextInputType.emailAddress,
                           onChanged: (text) {
                             changeButtonState();
                           },
@@ -142,6 +144,8 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                         const SizedBox(height: 16),
                         TextField(
+                          keyboardType: TextInputType.visiblePassword,
+                          obscureText: true,
                           onChanged: (text) {
                             changeButtonState();
                           },

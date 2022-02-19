@@ -65,6 +65,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           height: 32,
                         ),
                         TextField(
+                          keyboardType: TextInputType.emailAddress,
                           onChanged: (text) {
                             changeButtonState();
                           },
