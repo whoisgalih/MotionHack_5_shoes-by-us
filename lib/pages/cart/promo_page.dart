@@ -200,11 +200,15 @@ class _PromoAccordionParentState extends State<PromoAccordionParent> {
                             });
                           }
                           if (selectedPromo == entry.key) {
-                            selectedPromo = -1;
-                            promo = null;
+                            setState(() {
+                              selectedPromo = -1;
+                              promo = null;
+                            });
                           } else {
-                            selectedPromo = entry.key;
-                            promo = entry.value;
+                            setState(() {
+                              selectedPromo = entry.key;
+                              promo = entry.value;
+                            });
                           }
                           widget.callback(promo);
                           print(promo != null ? promo!.name : promo);

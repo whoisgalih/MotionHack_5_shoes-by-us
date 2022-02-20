@@ -162,7 +162,7 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
                     Provider.of<PaymentProvider>(context, listen: false)
                         .changePayment(selectPayment);
                     Navigator.of(context).pushNamedAndRemoveUntil(
-                        "/cart", ModalRoute.withName("/cart"));
+                        "/cart", ModalRoute.withName("/home"));
                   }
                 },
                 child: Row(

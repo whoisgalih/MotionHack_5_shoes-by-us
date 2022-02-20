@@ -243,8 +243,7 @@ class _CartPageState extends State<CartPage> {
                                           SizedBox(width: 18),
                                           Text(
                                               promo.selectedPromo != null
-                                                  ? promo.selectedPromo!.name
-                                                      .toUpperCase()
+                                                  ? "${promo.selectedPromo!.name.toUpperCase()} ${promo.selectedPromo!.percent}%"
                                                   : "Use Promo If You Have",
                                               style: subtitle2.copyWith(
                                                   color: neutralBlack,
