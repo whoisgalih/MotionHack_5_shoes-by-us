@@ -122,8 +122,9 @@ class _CardPageState extends State<CardPage> {
                               padding:
                                   const EdgeInsets.only(left: 32, right: 24),
                               child: isButtonEnabled
-                                  ? SvgPicture.asset(
-                                      "assets/icons/credit-card 3.svg",
+                                  ? Image(
+                                      image: AssetImage(
+                                          "assets/icons/credit-card 3.png"),
                                       height: 24,
                                       width: 24,
                                     )

@@ -54,8 +54,52 @@ class _CartPageState extends State<CartPage> {
             //   height: 32,
             // ),
             Consumer<ShoesProvider>(builder: (context, cart, child) {
-              if (cart.shoes.isEmpty)
-                return SizedBox(child: Text("Cart is empty"));
+              if (cart.shoes.isEmpty) {
+                return Expanded(
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: double.infinity,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                            padding: EdgeInsets.all(30),
+                            child: Icon(
+                              TablerIcons.shopping_cart,
+                              size: 120,
+                              color: green2,
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: green1,
+                            )),
+                        SizedBox(height: 42),
+                        Text("Cart is empty", style: headline5),
+                        SizedBox(height: 18),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                "/home", (route) => false);
+                          },
+                          child: Text(
+                            "Go get some shoes",
+                            style: button.copyWith(color: neutralWhite),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                              primary: primary50,
+                              elevation: 0,
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 16, horizontal: 24),
+                              shape: const RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(8)),
+                              )),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }
 
               num subtotal = cart.totalPrice;
               return Consumer<PromoProvider>(builder: (context, promo, child) {
