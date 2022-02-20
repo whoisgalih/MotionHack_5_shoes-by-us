@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:shoes_by_us/models/address_provider.dart';
 import 'package:shoes_by_us/models/payment_provider.dart';
 import 'package:shoes_by_us/models/promo_provider.dart';
+import 'package:shoes_by_us/models/receipt_model.dart';
 import 'package:shoes_by_us/models/shoes_provider.dart';
 import 'package:shoes_by_us/pages/auth/boarding_page.dart';
 import 'package:shoes_by_us/pages/auth/check_email_page.dart';
@@ -39,71 +40,74 @@ class ShoesByUs extends StatelessWidget {
           create: (context) => ShoesProvider(),
           child: ChangeNotifierProvider<AddressProvider>(
             create: (context) => AddressProvider(),
-            child: MaterialApp(
-              debugShowCheckedModeBanner: false,
-              theme: ThemeData(
-                scaffoldBackgroundColor: neutralWhite,
-                textTheme: TextTheme(
-                  headline4: GoogleFonts.poppins(
-                      fontSize: 34,
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: 0.0125),
-                  headline5: GoogleFonts.poppins(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: 0.0125),
-                  headline6: GoogleFonts.poppins(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: 0.0125),
-                  subtitle1: GoogleFonts.poppins(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    letterSpacing: 0.0125,
-                    color: neutralGrey2,
-                  ),
-                  subtitle2: GoogleFonts.poppins(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    letterSpacing: 0.0125,
-                    color: neutralGrey2,
-                  ),
-                  bodyText1: GoogleFonts.inter(
+            child: ChangeNotifierProvider<ReceiptProvider>(
+              create: (context) => ReceiptProvider(),
+              child: MaterialApp(
+                debugShowCheckedModeBanner: false,
+                theme: ThemeData(
+                  scaffoldBackgroundColor: neutralWhite,
+                  textTheme: TextTheme(
+                    headline4: GoogleFonts.poppins(
+                        fontSize: 34,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 0.0125),
+                    headline5: GoogleFonts.poppins(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 0.0125),
+                    headline6: GoogleFonts.poppins(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 0.0125),
+                    subtitle1: GoogleFonts.poppins(
                       fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      letterSpacing: 0.0125),
-                  bodyText2: GoogleFonts.inter(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      letterSpacing: 0.0125),
-                  button: GoogleFonts.inter(
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 0.0125,
+                      color: neutralGrey2,
+                    ),
+                    subtitle2: GoogleFonts.poppins(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
-                      letterSpacing: 0.0125),
-                  caption: GoogleFonts.inter(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      letterSpacing: 0.004),
+                      letterSpacing: 0.0125,
+                      color: neutralGrey2,
+                    ),
+                    bodyText1: GoogleFonts.inter(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        letterSpacing: 0.0125),
+                    bodyText2: GoogleFonts.inter(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        letterSpacing: 0.0125),
+                    button: GoogleFonts.inter(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 0.0125),
+                    caption: GoogleFonts.inter(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        letterSpacing: 0.004),
+                  ),
                 ),
+                initialRoute: '/',
+                routes: {
+                  '/': (context) => const Wrapper(),
+                  '/sign-up': (context) => const SignUpPage(),
+                  '/home': (context) => const HomePage(),
+                  '/sign-in': (context) => const SignInPage(),
+                  '/reset-password': (context) => const ResetPasswordPage(),
+                  '/check-email': (context) => const CheckEmailPage(),
+                  "/cart": (context) => const CartPage(),
+                  "/payment-method": (context) => const PaymentMethodPage(),
+                  "/payment-success": (context) => const PaymentSuccessPage(),
+                  "/track": (context) => const TrackItemPage(),
+                  "/card": (context) => const CardPage(),
+                  "/promo": (context) => const PromoPage(),
+                  "/address": (context) => const AddressPage(),
+                  "/new-password": (context) => const NewPasswordPage(),
+                  "/sign-up-success": (context) => const SuccesSignUpPage(),
+                },
               ),
-              initialRoute: '/',
-              routes: {
-                '/': (context) => const Wrapper(),
-                '/sign-up': (context) => const SignUpPage(),
-                '/home': (context) => const HomePage(),
-                '/sign-in': (context) => const SignInPage(),
-                '/reset-password': (context) => const ResetPasswordPage(),
-                '/check-email': (context) => const CheckEmailPage(),
-                "/cart": (context) => const CartPage(),
-                "/payment-method": (context) => const PaymentMethodPage(),
-                "/payment-success": (context) => const PaymentSuccessPage(),
-                "/track": (context) => const TrackItemPage(),
-                "/card": (context) => const CardPage(),
-                "/promo": (context) => const PromoPage(),
-                "/address": (context) => const AddressPage(),
-                "/new-password": (context) => const NewPasswordPage(),
-                "/sign-up-success": (context) => const SuccesSignUpPage(),
-              },
             ),
           ),
         ),

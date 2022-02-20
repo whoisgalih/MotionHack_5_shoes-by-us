@@ -6,6 +6,7 @@ import 'package:shoes_by_us/formater/addDot.dart';
 import 'package:shoes_by_us/models/address_provider.dart';
 import 'package:shoes_by_us/models/payment_provider.dart';
 import 'package:shoes_by_us/models/promo_provider.dart';
+import 'package:shoes_by_us/models/receipt_model.dart';
 import 'package:shoes_by_us/models/shoes.dart';
 import 'package:shoes_by_us/models/shoes_provider.dart';
 import 'package:shoes_by_us/themes/border.dart';
@@ -25,24 +26,24 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-  bool isButtonEnabled = false;
-  String selectPayment = "a";
+  Payment? _payment;
+  Address? _address;
 
-  void changeButtonState() {
-    if (selectPayment != "") {
-      setState(() {
-        isButtonEnabled = true;
-      });
-    } else {
-      setState(() {
-        isButtonEnabled = false;
-      });
-    }
-  }
+  // void changeButtonState() {
+  //   if (_payment != null && _address != null) {
+  //     setState(() {
+  //       isButtonEnabled = true;
+  //     });
+  //   } else {
+  //     setState(() {
+  //       isButtonEnabled = false;
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
-    changeButtonState();
+    // changeButtonState();
     // Provider.of<ShoesProvider>(context).clearAll();
     return Scaffold(
       body: SafeArea(
@@ -111,233 +112,240 @@ class _CartPageState extends State<CartPage> {
                   afterDiscount = promo.calculatePriceAfterDiscount(
                       promo.selectedPromo!.percent, subtotal);
                 }
-                return Consumer<AddressProvider>(
-                    builder: (context, address, child) {
-                  return Expanded(
-                    child: SingleChildScrollView(
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 24, vertical: 32),
-                        width: double.infinity,
-                        child: Column(
-                          children: [
-                            Column(children: [
-                              ...cart.shoes
-                                  .asMap()
-                                  .entries
-                                  .map((entry) => CartShoe(
-                                      shoe: entry.value,
-                                      isLast:
-                                          entry.key == cart.shoes.length - 1))
-                                  .toList(),
-                            ]),
-                            Container(
-                                decoration: decoBorder,
-                                margin: const EdgeInsets.only(top: 32),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 18, vertical: 16),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                        child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Wrap(
-                                            direction: Axis.horizontal,
-                                            children: [
-                                              Text("Bebas Ongkir (",
-                                                  style: subtitle1.copyWith(
-                                                      color: neutralBlack)),
-                                              Text("${addDot(20000)} ",
-                                                  style: subtitle1.copyWith(
-                                                      decoration: TextDecoration
-                                                          .lineThrough)),
-                                              Text("${addDot(0)})",
-                                                  style: subtitle1.copyWith(
-                                                      color: neutralBlack)),
-                                            ]),
-                                        const SizedBox(height: 8),
-                                        Text("Time Estimated 24- 2 February",
-                                            style: caption.copyWith(
-                                                color: neutralGrey2))
-                                      ],
-                                    )),
-                                    Icon(TablerIcons.chevron_right,
-                                        size: 24, color: neutralBlack)
-                                  ],
-                                )),
-                            Container(
-                                decoration: BoxDecoration(
-                                    border: Border(
-                                        top: BorderSide(
-                                            color: neutralGrey, width: 2),
-                                        bottom: BorderSide(
-                                            color: neutralGrey, width: 2))),
-                                margin:
-                                    const EdgeInsets.symmetric(vertical: 24),
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 24),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(children: [
-                                            SvgPicture.asset(
-                                              "assets/icons/shield 1.svg",
-                                              height: 24,
-                                              width: 24,
-                                            ),
-                                            SizedBox(width: 12),
-                                            Text("Shipping Insurence",
-                                                style: subtitle2.copyWith(
-                                                    color: neutralBlack)),
-                                          ]),
-                                          const SizedBox(height: 8),
-                                          Container(
-                                            constraints:
-                                                BoxConstraints(maxWidth: 241),
-                                            child: Text(
-                                                "Free guaranteed shipping insurance for your products to your home safely.",
-                                                style: caption.copyWith(
-                                                    color: neutralGrey2)),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    SvgPicture.asset(
-                                      "assets/icons/checkbox 1.svg",
-                                      height: 24,
-                                      width: 24,
-                                    ),
-                                  ],
-                                )),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).pushNamed("/promo");
-                              },
-                              child: Container(
+                return Consumer<PaymentProvider>(
+                    builder: (context, payment, child) {
+                  _payment = payment.payment;
+
+                  return Consumer<AddressProvider>(
+                      builder: (context, address, child) {
+                    _address = address.address;
+
+                    return Expanded(
+                      child: SingleChildScrollView(
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 24, vertical: 32),
+                          width: double.infinity,
+                          child: Column(
+                            children: [
+                              Column(children: [
+                                ...cart.shoes
+                                    .asMap()
+                                    .entries
+                                    .map((entry) => CartShoe(
+                                        shoe: entry.value,
+                                        isLast:
+                                            entry.key == cart.shoes.length - 1))
+                                    .toList(),
+                              ]),
+                              Container(
                                   decoration: decoBorder,
+                                  margin: const EdgeInsets.only(top: 32),
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 18, vertical: 16),
                                   child: Row(
                                     children: [
                                       Expanded(
-                                          child: Row(children: [
-                                        SvgPicture.asset(
-                                          "assets/icons/discount-2 1.svg",
-                                          height: 24,
-                                          width: 24,
-                                        ),
-                                        SizedBox(width: 18),
-                                        Text(
-                                            promo.selectedPromo != null
-                                                ? promo.selectedPromo!.name
-                                                    .toUpperCase()
-                                                : "Use Promo If You Have",
-                                            style: subtitle2.copyWith(
-                                                color: neutralBlack,
-                                                fontWeight:
-                                                    promo.selectedPromo != null
-                                                        ? FontWeight.w700
-                                                        : FontWeight.w500))
-                                      ])),
+                                          child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Wrap(
+                                              direction: Axis.horizontal,
+                                              children: [
+                                                Text("Bebas Ongkir (",
+                                                    style: subtitle1.copyWith(
+                                                        color: neutralBlack)),
+                                                Text("${addDot(20000)} ",
+                                                    style: subtitle1.copyWith(
+                                                        decoration:
+                                                            TextDecoration
+                                                                .lineThrough)),
+                                                Text("${addDot(0)})",
+                                                    style: subtitle1.copyWith(
+                                                        color: neutralBlack)),
+                                              ]),
+                                          const SizedBox(height: 8),
+                                          Text("Time Estimated 24- 2 February",
+                                              style: caption.copyWith(
+                                                  color: neutralGrey2))
+                                        ],
+                                      )),
                                       Icon(TablerIcons.chevron_right,
                                           size: 24, color: neutralBlack)
                                     ],
                                   )),
-                            ),
-                            Container(
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                            color: neutralGrey, width: 2))),
-                                margin:
-                                    const EdgeInsets.symmetric(vertical: 24),
-                                padding: const EdgeInsets.only(bottom: 16),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("Payment Details",
-                                        style: headline6.copyWith(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 15)),
-                                    SizedBox(height: 13),
-                                    Container(
-                                        width: double.infinity,
-                                        child: Column(children: [
-                                          PaymentDetailsItem(
-                                            title: "Subtotal",
-                                            price: subtotal,
-                                          ),
-                                          PaymentDetailsItem(
-                                              title: "Shipping", price: 0),
-                                          (totalDiscount != 0)
-                                              ? PaymentDetailsItem(
-                                                  title: "Discount",
-                                                  price: totalDiscount)
-                                              : SizedBox(),
-                                          PaymentDetailsItem(
-                                              title: "Total",
-                                              price: (totalDiscount == 0)
-                                                  ? subtotal
-                                                  : afterDiscount),
-                                        ]))
-                                  ],
-                                )),
-                            Container(
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                            color: neutralGrey, width: 2))),
-                                margin: const EdgeInsets.only(bottom: 24),
-                                padding: const EdgeInsets.only(bottom: 24),
-                                child: Column(
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        Navigator.of(context)
-                                            .pushNamed("/address");
-                                      },
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text("Address Details",
-                                                    style: button.copyWith(
-                                                        color: neutralGrey2)),
-                                                SizedBox(height: 4),
-                                                Text(
-                                                    address.address != null
-                                                        ? "${address.address!.address} ${address.address!.addressDetail} "
-                                                        : "Please input address",
-                                                    style: subtitle2.copyWith(
-                                                        color: neutralBlack),
-                                                    overflow:
-                                                        TextOverflow.ellipsis)
-                                              ],
-                                            ),
-                                          ),
-                                          Icon(TablerIcons.chevron_right,
-                                              size: 24, color: neutralBlack)
-                                        ],
+                              Container(
+                                  decoration: BoxDecoration(
+                                      border: Border(
+                                          top: BorderSide(
+                                              color: neutralGrey, width: 2),
+                                          bottom: BorderSide(
+                                              color: neutralGrey, width: 2))),
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 24),
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 24),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(children: [
+                                              SvgPicture.asset(
+                                                "assets/icons/shield 1.svg",
+                                                height: 24,
+                                                width: 24,
+                                              ),
+                                              SizedBox(width: 12),
+                                              Text("Shipping Insurence",
+                                                  style: subtitle2.copyWith(
+                                                      color: neutralBlack)),
+                                            ]),
+                                            const SizedBox(height: 8),
+                                            Container(
+                                              constraints:
+                                                  BoxConstraints(maxWidth: 241),
+                                              child: Text(
+                                                  "Free guaranteed shipping insurance for your products to your home safely.",
+                                                  style: caption.copyWith(
+                                                      color: neutralGrey2)),
+                                            )
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    SizedBox(height: 24),
-                                    GestureDetector(
-                                      onTap: () => Navigator.of(context)
-                                          .pushNamed("/payment-method"),
-                                      child: Consumer<PaymentProvider>(
-                                        builder: (context, payment, child) =>
-                                            Row(
+                                      SvgPicture.asset(
+                                        "assets/icons/checkbox 1.svg",
+                                        height: 24,
+                                        width: 24,
+                                      ),
+                                    ],
+                                  )),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).pushNamed("/promo");
+                                },
+                                child: Container(
+                                    decoration: decoBorder,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 18, vertical: 16),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                            child: Row(children: [
+                                          SvgPicture.asset(
+                                            "assets/icons/discount-2 1.svg",
+                                            height: 24,
+                                            width: 24,
+                                          ),
+                                          SizedBox(width: 18),
+                                          Text(
+                                              promo.selectedPromo != null
+                                                  ? promo.selectedPromo!.name
+                                                      .toUpperCase()
+                                                  : "Use Promo If You Have",
+                                              style: subtitle2.copyWith(
+                                                  color: neutralBlack,
+                                                  fontWeight:
+                                                      promo.selectedPromo !=
+                                                              null
+                                                          ? FontWeight.w700
+                                                          : FontWeight.w500))
+                                        ])),
+                                        Icon(TablerIcons.chevron_right,
+                                            size: 24, color: neutralBlack)
+                                      ],
+                                    )),
+                              ),
+                              Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                      border: Border(
+                                          bottom: BorderSide(
+                                              color: neutralGrey, width: 2))),
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 24),
+                                  padding: const EdgeInsets.only(bottom: 16),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text("Payment Details",
+                                          style: headline6.copyWith(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 15)),
+                                      SizedBox(height: 13),
+                                      Container(
+                                          width: double.infinity,
+                                          child: Column(children: [
+                                            PaymentDetailsItem(
+                                              title: "Subtotal",
+                                              price: subtotal,
+                                            ),
+                                            PaymentDetailsItem(
+                                                title: "Shipping", price: 0),
+                                            (totalDiscount != 0)
+                                                ? PaymentDetailsItem(
+                                                    title: "Discount",
+                                                    price: totalDiscount)
+                                                : SizedBox(),
+                                            PaymentDetailsItem(
+                                                title: "Total",
+                                                price: (totalDiscount == 0)
+                                                    ? subtotal
+                                                    : afterDiscount),
+                                          ]))
+                                    ],
+                                  )),
+                              Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                      border: Border(
+                                          bottom: BorderSide(
+                                              color: neutralGrey, width: 2))),
+                                  margin: const EdgeInsets.only(bottom: 24),
+                                  padding: const EdgeInsets.only(bottom: 24),
+                                  child: Column(
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.of(context)
+                                              .pushNamed("/address");
+                                        },
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text("Address Details",
+                                                      style: button.copyWith(
+                                                          color: neutralGrey2)),
+                                                  SizedBox(height: 4),
+                                                  Text(
+                                                      address.address != null
+                                                          ? "${address.address!.address} ${address.address!.addressDetail} "
+                                                          : "Please input address",
+                                                      style: subtitle2.copyWith(
+                                                          color: neutralBlack),
+                                                      overflow:
+                                                          TextOverflow.ellipsis)
+                                                ],
+                                              ),
+                                            ),
+                                            Icon(TablerIcons.chevron_right,
+                                                size: 24, color: neutralBlack)
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(height: 24),
+                                      GestureDetector(
+                                        onTap: () => Navigator.of(context)
+                                            .pushNamed("/payment-method"),
+                                        child: Row(
                                           children: [
                                             Container(
                                               padding: EdgeInsets.all(10),
@@ -383,79 +391,97 @@ class _CartPageState extends State<CartPage> {
                                           ],
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                )),
-                            Container(
+                                    ],
+                                  )),
+                              Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                      border: Border(
+                                          bottom: BorderSide(
+                                              color: neutralGrey, width: 2))),
+                                  margin: const EdgeInsets.only(bottom: 24),
+                                  padding: const EdgeInsets.only(bottom: 24),
+                                  child: Text(
+                                      "With activating protection feature, I accept to Terms and Conditions that apply")),
+                              Container(
                                 width: double.infinity,
-                                decoration: BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                            color: neutralGrey, width: 2))),
-                                margin: const EdgeInsets.only(bottom: 24),
-                                padding: const EdgeInsets.only(bottom: 24),
-                                child: Text(
-                                    "With activating protection feature, I accept to Terms and Conditions that apply")),
-                            Container(
-                              width: double.infinity,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("Total", style: button),
-                                  Text(addDot(subtotal),
-                                      style:
-                                          subtitle2.copyWith(color: accent50)),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(top: 24),
-                              width: double.infinity,
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  isButtonEnabled
-                                      ? Navigator.of(context)
-                                          .pushNamedAndRemoveUntil(
-                                              "/payment-success",
-                                              (route) => false)
-                                      : () {};
-                                },
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
+                                    Text("Total", style: button),
                                     Text(
-                                      "Pay",
-                                      style: button.copyWith(
-                                          color: isButtonEnabled
-                                              ? neutralWhite
-                                              : neutralGrey2),
-                                    ),
-                                    const SizedBox(width: 10),
-                                    Icon(TablerIcons.chevron_right,
-                                        size: 16,
-                                        color: isButtonEnabled
-                                            ? neutralWhite
-                                            : neutralGrey2),
+                                        addDot((totalDiscount == 0)
+                                            ? subtotal
+                                            : afterDiscount),
+                                        style: subtitle2.copyWith(
+                                            color: accent50)),
                                   ],
                                 ),
-                                style: ElevatedButton.styleFrom(
-                                    primary: isButtonEnabled
-                                        ? primary50
-                                        : neutralGrey,
-                                    elevation: 0,
-                                    padding: const EdgeInsets.all(18),
-                                    shape: const RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(8)),
-                                    )),
                               ),
-                            ),
-                          ],
+                              Container(
+                                margin: EdgeInsets.only(top: 24),
+                                width: double.infinity,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    if (_payment != null && _address != null) {
+                                      Provider.of<ReceiptProvider>(context,
+                                              listen: false)
+                                          .addReceipt(
+                                              (totalDiscount == 0)
+                                                  ? subtotal
+                                                  : afterDiscount,
+                                              payment.payment);
+                                      Navigator.of(context)
+                                          .pushNamedAndRemoveUntil(
+                                              "/payment-success",
+                                              (route) => false);
+
+                                      Provider.of<ShoesProvider>(context,
+                                              listen: false)
+                                          .clearAll();
+                                    }
+                                    ;
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Pay",
+                                        style: button.copyWith(
+                                            color: _payment != null &&
+                                                    _address != null
+                                                ? neutralWhite
+                                                : neutralGrey2),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Icon(TablerIcons.chevron_right,
+                                          size: 16,
+                                          color: _payment != null &&
+                                                  _address != null
+                                              ? neutralWhite
+                                              : neutralGrey2),
+                                    ],
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                      primary:
+                                          _payment != null && _address != null
+                                              ? primary50
+                                              : neutralGrey,
+                                      elevation: 0,
+                                      padding: const EdgeInsets.all(18),
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(8)),
+                                      )),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  );
+                    );
+                  });
                 });
               });
             })
