@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "245487986706",
+    "project_id": "shoes-by-us",
+    "storage_bucket": "shoes-by-us.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:245487986706:android:719c66d1724500d10d10cb",
+        "android_client_info": {
+          "package_name": "com.example.shoes_by_us"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "245487986706-q1qemq8vru2gdulmbiq5l2264codhh0c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAT60cvFZX6U4zxIT9dTcgvNNKfk-IX8Jk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "245487986706-q1qemq8vru2gdulmbiq5l2264codhh0c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

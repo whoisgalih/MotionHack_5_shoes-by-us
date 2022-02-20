@@ -23,7 +23,8 @@ class _SignUpPageState extends State<SignUpPage> {
   void changeButtonState() {
     if (_passwordController.text.length >= 6) {
       setState(() {
-        if (_passwordController.text.contains(RegExp(r'[0-9]'))) {
+        if (_passwordController.text.contains(RegExp(r'[0-9]')) &&
+            _passwordController.text.contains(RegExp(r'[a-zA-Z]'))) {
           level = 2;
         } else {
           level = 1;
