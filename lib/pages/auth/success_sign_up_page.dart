@@ -31,7 +31,7 @@ class SuccesSignUpPage extends StatelessWidget {
                       ),
                       SizedBox(height: 24),
                       Text(
-                        "Your account has ben set up, if you have a minute, please check your related email to comnfirm validity of your account 😀",
+                        "Your account has been set up, if you have a minute, please check your related email to comnfirm validity of your account 😀",
                         textAlign: TextAlign.center,
                         style: subtitle2,
                       ),
