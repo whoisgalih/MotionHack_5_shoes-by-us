@@ -24,7 +24,7 @@ class _CardPageState extends State<CardPage> {
   bool isButtonEnabled = false;
 
   void changeButtonState() {
-    if (_numberController.text.length == 16 &&
+    if (_numberController.text.length == 19 &&
         _expireController.text.length == 5 &&
         _cvvController.text.length == 3) {
       setState(() {

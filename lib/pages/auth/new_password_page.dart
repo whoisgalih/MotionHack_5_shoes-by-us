@@ -136,40 +136,55 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 12),
-                        Row(
-                          children: [
-                            Container(
-                                width: 62,
-                                height: 4,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(2),
-                                  color: red1,
-                                )),
-                            SizedBox(width: 4),
-                            Container(
-                                width: 62,
-                                height: 4,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(2),
-                                  color: level > 0 ? yellow1 : neutralGrey,
-                                )),
-                            SizedBox(width: 4),
-                            Container(
-                                width: 62,
-                                height: 4,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(2),
-                                  color: level > 1 ? green1 : neutralGrey,
-                                )),
-                            SizedBox(width: 12),
-                            Text(level > 1
-                                ? "Good to go"
-                                : level > 0
-                                    ? "Could be strongger"
-                                    : "Weak password")
-                          ],
-                        ),
+                        _passwordController.text != ""
+                            ? const SizedBox(height: 12)
+                            : SizedBox(),
+                        _passwordController.text != ""
+                            ? Row(
+                                children: [
+                                  Container(
+                                      width: 62,
+                                      height: 4,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(2),
+                                        color: red1,
+                                      )),
+                                  SizedBox(width: 4),
+                                  Container(
+                                      width: 62,
+                                      height: 4,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(2),
+                                        color:
+                                            level > 0 ? yellow1 : neutralGrey,
+                                      )),
+                                  SizedBox(width: 4),
+                                  Container(
+                                      width: 62,
+                                      height: 4,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(2),
+                                        color: level > 1 ? green1 : neutralGrey,
+                                      )),
+                                  SizedBox(width: 12),
+                                  Text(
+                                      level > 1
+                                          ? "Good to go"
+                                          : level > 0
+                                              ? "Could be strongger"
+                                              : "Weak password",
+                                      style: caption.copyWith(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 10,
+                                        color: level > 1
+                                            ? green2
+                                            : level > 0
+                                                ? yellow2
+                                                : red2,
+                                      ))
+                                ],
+                              )
+                            : SizedBox(),
                         const SizedBox(height: 16),
                         TextField(
                           obscureText: !showPassword2,
@@ -227,13 +242,17 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 12),
-                        Text(
-                            _passwordController.text ==
-                                    _passwordConfirmController.text
-                                ? ""
-                                : "Both passwords must match",
-                            style: caption.copyWith(color: neutralGrey2)),
+                        _passwordConfirmController.text != ""
+                            ? const SizedBox(height: 12)
+                            : SizedBox(),
+                        _passwordConfirmController.text != ""
+                            ? Text(
+                                _passwordController.text ==
+                                        _passwordConfirmController.text
+                                    ? ""
+                                    : "Both passwords must match",
+                                style: caption.copyWith(color: neutralGrey2))
+                            : SizedBox(),
                         const SizedBox(height: 24),
                       ],
                     ),

@@ -18,21 +18,48 @@ class _SignUpPageState extends State<SignUpPage> {
 
   bool isButtonEnabled = false;
   bool showPassword = false;
+  int level = 0;
 
   void changeButtonState() {
-    if (_nameController.text.isNotEmpty &&
-        _emailController.text.contains("@") &&
-        _emailController.text.contains(".") &&
-        _passwordController.text.length >= 6) {
+    if (_passwordController.text.length >= 6) {
       setState(() {
-        isButtonEnabled = true;
+        if (_passwordController.text.contains(RegExp(r'[0-9]'))) {
+          level = 2;
+        } else {
+          level = 1;
+        }
+
+        if (_nameController.text.isNotEmpty &&
+            _emailController.text.contains("@") &&
+            _emailController.text.contains(".") &&
+            _passwordController.text.length >= 6) {
+          isButtonEnabled = true;
+        } else {
+          isButtonEnabled = false;
+        }
       });
     } else {
       setState(() {
         isButtonEnabled = false;
       });
+      level = 0;
     }
   }
+
+  // void changeButtonState() {
+  //   if (_nameController.text.isNotEmpty &&
+  //       _emailController.text.contains("@") &&
+  //       _emailController.text.contains(".") &&
+  //       _passwordController.text.length >= 6) {
+  //     setState(() {
+  //       isButtonEnabled = true;
+  //     });
+  //   } else {
+  //     setState(() {
+  //       isButtonEnabled = false;
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -201,6 +228,55 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           ),
                         ),
+                        _passwordController.text != ""
+                            ? const SizedBox(height: 12)
+                            : SizedBox(),
+                        _passwordController.text != ""
+                            ? Row(
+                                children: [
+                                  Container(
+                                      width: 62,
+                                      height: 4,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(2),
+                                        color: red1,
+                                      )),
+                                  SizedBox(width: 4),
+                                  Container(
+                                      width: 62,
+                                      height: 4,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(2),
+                                        color:
+                                            level > 0 ? yellow1 : neutralGrey,
+                                      )),
+                                  SizedBox(width: 4),
+                                  Container(
+                                      width: 62,
+                                      height: 4,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(2),
+                                        color: level > 1 ? green1 : neutralGrey,
+                                      )),
+                                  SizedBox(width: 12),
+                                  Text(
+                                      level > 1
+                                          ? "Good to go"
+                                          : level > 0
+                                              ? "Could be strongger"
+                                              : "Weak password",
+                                      style: caption.copyWith(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 10,
+                                        color: level > 1
+                                            ? green2
+                                            : level > 0
+                                                ? yellow2
+                                                : red2,
+                                      ))
+                                ],
+                              )
+                            : SizedBox(),
                         SizedBox(height: 16),
                       ],
                     ),
@@ -232,7 +308,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               isButtonEnabled
                                   ? Navigator.of(context)
                                       .pushNamedAndRemoveUntil(
-                                          "/home", (route) => false)
+                                          "/sign-up-success", (route) => false)
                                   : () {};
                             },
                             child: Row(

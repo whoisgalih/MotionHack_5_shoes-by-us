@@ -158,12 +158,12 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  Provider.of<PaymentProvider>(context, listen: false)
-                      .changePayment(selectPayment);
-                  isButtonEnabled
-                      ? Navigator.of(context).pushNamedAndRemoveUntil(
-                          "/cart", ModalRoute.withName("/cart"))
-                      : () {};
+                  if (isButtonEnabled) {
+                    Provider.of<PaymentProvider>(context, listen: false)
+                        .changePayment(selectPayment);
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        "/cart", ModalRoute.withName("/cart"));
+                  }
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

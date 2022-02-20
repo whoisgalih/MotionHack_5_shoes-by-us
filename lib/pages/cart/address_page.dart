@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:provider/provider.dart';
+import 'package:shoes_by_us/models/address_provider.dart';
 import 'package:shoes_by_us/models/promo_provider.dart';
 import 'package:shoes_by_us/themes/colors.dart';
 import 'package:shoes_by_us/themes/fonts.dart';
@@ -16,7 +17,11 @@ class AddressPage extends StatefulWidget {
 }
 
 class _AddressPageState extends State<AddressPage> {
-  final TextEditingController _addressCodeController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _addressDetailController =
+      TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
 
   // Address? _address;
 
@@ -25,7 +30,10 @@ class _AddressPageState extends State<AddressPage> {
   bool isButtonEnabled = false;
 
   void changeButtonState() {
-    if (_addressCodeController.text.length == 16) {
+    if (_phoneController.text.length >= 3 &&
+        _nameController.text.isNotEmpty &&
+        _addressDetailController.text.isNotEmpty &&
+        _addressController.text.isNotEmpty) {
       setState(() {
         isButtonEnabled = true;
       });
@@ -79,7 +87,7 @@ class _AddressPageState extends State<AddressPage> {
                                 onChanged: (text) {
                                   changeButtonState();
                                 },
-                                controller: _addressCodeController,
+                                controller: _nameController,
                                 decoration: InputDecoration(
                                   filled: true,
                                   fillColor: textField,
@@ -118,7 +126,7 @@ class _AddressPageState extends State<AddressPage> {
                                 onChanged: (text) {
                                   changeButtonState();
                                 },
-                                controller: _addressCodeController,
+                                controller: _addressController,
                                 decoration: InputDecoration(
                                   filled: true,
                                   fillColor: textField,
@@ -173,7 +181,7 @@ class _AddressPageState extends State<AddressPage> {
                                 onChanged: (text) {
                                   changeButtonState();
                                 },
-                                controller: _addressCodeController,
+                                controller: _addressDetailController,
                                 decoration: InputDecoration(
                                   filled: true,
                                   fillColor: textField,
@@ -213,7 +221,7 @@ class _AddressPageState extends State<AddressPage> {
                                 onChanged: (text) {
                                   changeButtonState();
                                 },
-                                controller: _addressCodeController,
+                                controller: _phoneController,
                                 decoration: InputDecoration(
                                   filled: true,
                                   fillColor: textField,
@@ -249,7 +257,7 @@ class _AddressPageState extends State<AddressPage> {
                                     padding: const EdgeInsets.only(
                                         left: 24, right: 32),
                                     child: Icon(
-                                      TablerIcons.eye,
+                                      TablerIcons.book,
                                       size: 24,
                                       color: neutralBlack,
                                     ),
@@ -262,32 +270,44 @@ class _AddressPageState extends State<AddressPage> {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
-                          // Provider.of<PromoProvider>(context, listen: false)
-                          //     .changePromo(_address);
-
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                              "/cart", ModalRoute.withName("/home"));
+                          if (isButtonEnabled) {
+                            Provider.of<AddressProvider>(context, listen: false)
+                                .changeAddress(Address(
+                                    name: _nameController.text,
+                                    address: _addressController.text,
+                                    addressDetail:
+                                        _addressDetailController.text,
+                                    phone: _phoneController.text));
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                "/cart", ModalRoute.withName("/home"));
+                          }
                         },
                         child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Add Address",
-                                style: button.copyWith(color: neutralWhite),
-                              ),
-                              const SizedBox(width: 10),
-                              Icon(TablerIcons.chevron_right,
-                                  size: 16, color: neutralWhite),
-                            ]),
-                        style: ElevatedButton.styleFrom(
-                          primary: primary50,
-                          elevation: 0,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 32, vertical: 16),
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
-                          ),
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Add Address",
+                              style: button.copyWith(
+                                  color: isButtonEnabled
+                                      ? neutralWhite
+                                      : neutralGrey2),
+                            ),
+                            const SizedBox(width: 10),
+                            Icon(TablerIcons.chevron_right,
+                                size: 16,
+                                color: isButtonEnabled
+                                    ? neutralWhite
+                                    : neutralGrey2),
+                          ],
                         ),
+                        style: ElevatedButton.styleFrom(
+                            primary: isButtonEnabled ? primary50 : neutralGrey,
+                            elevation: 0,
+                            padding: const EdgeInsets.all(18),
+                            shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8)),
+                            )),
                       ),
                     ),
                   ],

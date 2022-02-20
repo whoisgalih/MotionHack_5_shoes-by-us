@@ -69,7 +69,6 @@ class _ShoePageState extends State<ShoePage> {
                               ),
                               Text(
                                 widget.shoe!.name,
-                                textAlign: TextAlign.center,
                                 style: headline6.copyWith(
                                     fontWeight: FontWeight.w700,
                                     color: neutralBlack),

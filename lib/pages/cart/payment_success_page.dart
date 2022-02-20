@@ -46,8 +46,10 @@ class PaymentSuccessPage extends StatelessWidget {
                         )),
                     SizedBox(height: 10),
                     Text(
-                        addDot(promo.calculatePriceAfterDiscount(
-                            promo.selectedPromo!.percent, cart.totalPrice)),
+                        addDot(promo.selectedPromo != null
+                            ? promo.calculatePriceAfterDiscount(
+                                promo.selectedPromo!.percent, cart.totalPrice)
+                            : cart.totalPrice),
                         style: headline4.copyWith(
                           fontSize: 24,
                           fontWeight: FontWeight.w700,
@@ -137,9 +139,11 @@ class PaymentSuccessPage extends StatelessWidget {
                                 children: [
                                   Text("Total Payment", style: subtitle2),
                                   Text(
-                                      addDot(promo.calculatePriceAfterDiscount(
-                                          promo.selectedPromo!.percent,
-                                          cart.totalPrice)),
+                                      addDot(promo.selectedPromo != null
+                                          ? promo.calculatePriceAfterDiscount(
+                                              promo.selectedPromo!.percent,
+                                              cart.totalPrice)
+                                          : cart.totalPrice),
                                       style: caption),
                                 ],
                               ),
