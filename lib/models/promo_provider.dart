@@ -9,12 +9,6 @@ class PromoProvider with ChangeNotifier {
         detail:
             "• Minimal purchase of Rp80.000\n• JABODETABEK regions only\n• Cannot be used with OVO payment",
         ends: "Ends in 1 week"),
-    Promo(
-        name: "Cashback",
-        percent: 20,
-        detail:
-            "• Minimal purchase of Rp80.000\n• JABODETABEK regions only\n• Cannot be used with OVO payment",
-        ends: "Ends in 1 week")
   ];
 
   List<Promo> get promos => _promos;
