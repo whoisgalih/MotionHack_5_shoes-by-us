@@ -306,11 +306,10 @@ class _SignUpPageState extends State<SignUpPage> {
                           width: double.infinity,
                           child: ElevatedButton(
                             onPressed: () {
-                              isButtonEnabled
-                                  ? Navigator.of(context)
-                                      .pushNamedAndRemoveUntil(
-                                          "/sign-up-success", (route) => false)
-                                  : () {};
+                              if (isButtonEnabled) {
+                                Navigator.of(context).pushNamedAndRemoveUntil(
+                                    "/sign-up-success", (route) => false);
+                              }
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
